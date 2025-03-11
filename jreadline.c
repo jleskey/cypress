@@ -36,8 +36,7 @@ char *jReadLine(FILE *stream)
     // Loop through all input characters until newline or EOF.
     while ((c = fgetc(stream)) != '\n' && c != EOF)
     {
-        // Strip extraneous whitespace.
-        // NOTE: This can leave a whitespace at the end of the line.
+        // Ensure whitespace is compressed.
         if (c != ' ' || (prevC != ' ' && length != 0))
         {
             // If the buffer is full or empty, allocate more space in
