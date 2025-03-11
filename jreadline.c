@@ -1,7 +1,7 @@
 /**
  * @file jreadline.c
  * @author Joseph Leskey
- * @date 28 January 2024
+ * @date 12 March 2025
  */
 
 #include "jreadline.h"
@@ -13,10 +13,18 @@ char *promptInput(char const *prompt)
     char *response = NULL;
 
     // We want to get useable input.
-    while (!response)
+    while (!response || response[0] == '\0')
     {
         printf("%s ", prompt);
+
         response = jReadLine(stdin);
+
+        // Handle EOF.
+        if (response == NULL)
+        {
+            printf("^D\n");
+            exit(EXIT_SUCCESS);
+        }
     }
 
 #if PROMPT_NEWLINE
@@ -29,61 +37,51 @@ char *promptInput(char const *prompt)
 char *jReadLine(FILE *stream)
 {
     char *buffer = NULL;
-
-    char c, prevC = '\0';
+    int size = 0;
     int length = 0;
 
-    // Loop through all input characters until newline or EOF.
-    while ((c = fgetc(stream)) != '\n' && c != EOF)
-    {
-        // Ensure whitespace is compressed.
-        if (c != ' ' || (prevC != ' ' && length != 0))
-        {
-            // If the buffer is full or empty, allocate more space in
-            // increments of `STRING_INCREMENT`.
-            if (length % STRING_INCREMENT == 0)
-            {
-                // We need to increment the buffer size and leave a
-                // space for a null character to complete the string.
-                int newLength = length + STRING_INCREMENT + 1;
+    char prevC = '\0';
+    char c = '\0';
 
-                // It would be a shame to lose the original buffer
-                // reference if `realloc` fails. Let's avoid that.
-                char *tempBuffer = realloc(buffer, sizeof(char) * newLength);
-                if (!tempBuffer)
-                {
-                    free(buffer);
-                    fprintf(stderr, "Memory allocation error.\n");
-                    return NULL;
-                }
-                buffer = tempBuffer;
-            }
-            buffer[length++] = c;
-        }
-        prevC = c;
-    }
-
-    if (buffer)
+    // Loop through all useful characters.
+    while (c != '\n' && (c = fgetc(stream)) != EOF)
     {
-        if (prevC == ' ')
+        // We use `length + 1` to leave room for a null terminator.
+        if (length + 1 >= size)
         {
-            // We don't want a single space. Count this as empty.
-            if (length == 1)
+            // We need to increase the buffer size.
+            size += STRING_INCREMENT;
+
+            // It would be a shame to lose the original buffer
+            // reference if `realloc` fails. Let's avoid that.
+            char *_buffer = realloc(buffer, sizeof(char) * size);
+            if (!_buffer)
             {
                 free(buffer);
+                fprintf(stderr, "Memory allocation error.\n");
                 return NULL;
             }
-
-            // We'll remove a trailing space.
-            buffer[length - 1] = '\0';
+            buffer = _buffer;
         }
-        else
+
+        if (c == '\n')
         {
-            // If we don't have to worry about a final space, we'll just
-            // tidily close off the character array and make it an
-            // official string.
+            // Set to overwrite trailing whitespace.
+            if (prevC == ' ')
+            {
+                length--;
+            }
+
+            // Terminate the string.
             buffer[length] = '\0';
         }
+        // We discard leading whitespace in whitespace pairs.
+        else if (c != ' ' || (prevC != ' ' && length != 0))
+        {
+            buffer[length++] = c;
+        }
+
+        prevC = c;
     }
 
     return buffer;

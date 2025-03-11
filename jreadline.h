@@ -1,7 +1,7 @@
 /**
  * @file jreadline.h
  * @author Joseph Leskey
- * @date 28 January 2024
+ * @date 12 March 2025
  */
 
 #ifndef J_READ_LINE_H
@@ -31,7 +31,7 @@ char *promptInput(char const *prompt);
  * Read a line from a given file descriptor
  *
  * @param[in] stream The file descriptor
- * @returns A meaningful line, or `NULL` if empty
+ * @returns The text of an user input line or `NULL` if EOF is reached
  */
 char *jReadLine(FILE *stream);
 
