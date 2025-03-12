@@ -9,14 +9,10 @@
 
 #include <stdio.h>
 
-/**
- * Toogle for printing a newline after prompt input
- */
+/** Toogle for printing a newline after prompt input */
 #define PROMPT_NEWLINE 0
 
-/**
- * The incrementation factor of dynamically allocated char arrays
- */
+/** The incrementation factor of dynamically allocated char arrays */
 #define STRING_INCREMENT 16
 
 /**
