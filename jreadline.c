@@ -15,6 +15,8 @@ char *promptInput(char const *prompt)
     // We want to get useable input.
     while (!response || response[0] == '\0')
     {
+        free(response);
+
         printf("%s ", prompt);
 
         response = jReadLine(stdin);
