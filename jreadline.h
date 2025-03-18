@@ -28,6 +28,8 @@ typedef enum JTrimmer
  * Display prompt until the user inputs a useful value.
  *
  * @param[in] prompt The prompt to display
+ * @param[in] trimmer Method for handling whitespace in input
+ * @param[in] newline Whether or not to print a newline after user input
  * @returns A meaningful line of input from `stdin`
  */
 char *promptInput(char const *prompt, JTrimmer trimmer, bool newline);
@@ -36,7 +38,7 @@ char *promptInput(char const *prompt, JTrimmer trimmer, bool newline);
  * Read a line from a given file descriptor
  *
  * @param[in] stream The file descriptor
- * @param[in] trimStrategy Strategy for handling whitespace in input
+ * @param[in] trimmer Method for handling whitespace in input
  * @returns The text of an user input line or `NULL` if EOF is reached
  */
 char *jReadLine(FILE *stream, JTrimmer trimmer);
