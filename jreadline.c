@@ -1,14 +1,15 @@
 /**
  * @file jreadline.c
  * @author Joseph Leskey
- * @date 12 March 2025
+ * @date 18 March 2025
  */
 
 #include "jreadline.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-char *promptInput(char const *prompt)
+char *promptInput(char const *prompt, JTrimmer trimmer, bool newline)
 {
     char *response = NULL;
 
@@ -19,7 +20,7 @@ char *promptInput(char const *prompt)
 
         printf("%s ", prompt);
 
-        response = jReadLine(stdin);
+        response = jReadLine(stdin, trimmer);
 
         // Handle EOF.
         if (response == NULL)
@@ -29,14 +30,15 @@ char *promptInput(char const *prompt)
         }
     }
 
-#if PROMPT_NEWLINE
-    printf("\n");
-#endif
+    if (newline)
+    {
+        printf("\n");
+    }
 
     return response;
 }
 
-char *jReadLine(FILE *stream)
+char *jReadLine(FILE *stream, JTrimmer trimmer)
 {
     char *buffer = NULL;
     int size = 0;
@@ -68,8 +70,8 @@ char *jReadLine(FILE *stream)
 
         if (c == '\n')
         {
-            // Set to overwrite trailing whitespace.
-            if (prevC == ' ')
+            // If trimming is enabled, overwrite any trailing space.
+            if (trimmer != J_TRIM_PRESERVE && prevC == ' ')
             {
                 length--;
             }
@@ -77,8 +79,17 @@ char *jReadLine(FILE *stream)
             // Terminate the string.
             buffer[length] = '\0';
         }
-        // We discard leading whitespace in whitespace pairs.
-        else if (c != ' ' || (prevC != ' ' && length != 0))
+        else if (
+            // Non-whitespace characters
+            c != ' ' ||
+            // Whitespace preservation
+            trimmer == J_TRIM_PRESERVE ||
+            // Whitespace removal
+            (
+                // Whitespace trimming
+                length != 0 &&
+                // Whitespace reduction
+                (trimmer != J_TRIM_REDUCE || prevC != ' ')))
         {
             buffer[length++] = c;
         }
