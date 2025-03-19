@@ -8,5 +8,6 @@
 
 #include "jreadline.h"
 #include "jstring.h"
+#include "jio.h"
 
 #endif // J_C_LIB_H
