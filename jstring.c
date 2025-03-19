@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int jlength(const char *format, ...)
+int jlenf(const char *format, ...)
 {
     va_list args;
     va_start(args, format);
@@ -17,4 +17,10 @@ int jlength(const char *format, ...)
     va_end(args);
 
     return size;
+}
+
+int jlen(const char *string) {
+    size_t length = 0;
+    while (string[++length] != '\0');
+    return length;
 }
