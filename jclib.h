@@ -7,5 +7,6 @@
 #define J_C_LIB_H
 
 #include "jreadline.h"
+#include "jstring.h"
 
 #endif // J_C_LIB_H
