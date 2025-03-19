@@ -6,9 +6,6 @@
 #ifndef J_STRING_H
 #define J_STRING_H
 
-#include <stdio.h>
-#include <stdarg.h>
-
 /**
  * Gets the length of an expanded format string.
  *
