@@ -1,7 +1,6 @@
 /**
  * @file jreadline.c
  * @author Joseph Leskey
- * @date 18 March 2025
  */
 
 #include "jreadline.h"
