@@ -4,8 +4,8 @@
  */
 
 #include "table.h"
-#include "io.h"
-#include "string.h"
+#include "print.h"
+#include "../data/string.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
