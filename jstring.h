@@ -13,7 +13,7 @@
  * @param[in] ... Parameters
  * @returns The length of the string
  */
-int jlenf(const char *format, ...);
+int jlenf(char *format, ...);
 
 /**
  * Gets the length of an expanded format string.
@@ -21,7 +21,7 @@ int jlenf(const char *format, ...);
  * @param[in] string The string
  * @returns The length of the string
  */
-int jlen(const char *string);
+int jlen(char *string);
 
 
 #endif // J_STRING_H
