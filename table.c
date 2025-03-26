@@ -3,9 +3,9 @@
  * @author Joseph Leskey
  */
 
-#include "jtable.h"
-#include "jio.h"
-#include "jstring.h"
+#include "table.h"
+#include "io.h"
+#include "string.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>

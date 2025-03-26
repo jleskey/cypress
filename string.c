@@ -3,7 +3,7 @@
  * @author Joseph Leskey
  */
 
-#include "jstring.h"
+#include "string.h"
 #include <stdio.h>
 #include <stdarg.h>
 
