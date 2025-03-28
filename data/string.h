@@ -23,5 +23,4 @@ int jlenf(char *format, ...);
  */
 int jlen(char *string);
 
-
 #endif // J_STRING_H

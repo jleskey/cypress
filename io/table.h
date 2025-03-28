@@ -7,7 +7,8 @@
 #define J_TABLE_H
 
 /** Representation of table properties */
-typedef struct JTableProperties {
+typedef struct JTableProperties
+{
     /** Number of columns */
     int columns;
     /** Widths of each column */

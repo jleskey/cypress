@@ -19,8 +19,10 @@ int jlenf(char *format, ...)
     return size;
 }
 
-int jlen(char *string) {
+int jlen(char *string)
+{
     int length = 0;
-    while (string[++length] != '\0');
+    while (string[++length] != '\0')
+        ;
     return length;
 }
