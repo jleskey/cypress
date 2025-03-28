@@ -24,7 +24,7 @@ typedef enum JTrimmer
 } JTrimmer;
 
 /**
- * Display prompt until the user inputs a useful value, exercising
+ * Displays a prompt until the user inputs a useful value, exercising
  * caution with memory use.
  *
  * @param[out] endpoint The output string
@@ -36,7 +36,7 @@ void jSafePrompt(char **endpoint, char const *prompt, JTrimmer trimmer,
                   bool newline);
 
 /**
- * Display prompt until the user inputs a useful value.
+ * Displays a prompt until the user inputs a useful value.
  *
  * @param[in] prompt The prompt to display
  * @param[in] trimmer Method for handling whitespace in input
@@ -45,7 +45,7 @@ void jSafePrompt(char **endpoint, char const *prompt, JTrimmer trimmer,
 char *jPrompt(char const *prompt, JTrimmer trimmer, bool newline);
 
 /**
- * Read a line from a given file descriptor
+ * Reads a line from a given file descriptor.
  *
  * @param[in] stream The file descriptor
  * @param[in] trimmer Method for handling whitespace in input
