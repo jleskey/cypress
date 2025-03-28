@@ -8,7 +8,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-char *promptInput(char const *prompt, JTrimmer trimmer, bool newline)
+void jSafePrompt(char **endpoint, char const *prompt, JTrimmer trimmer,
+                  bool newline)
+{
+    free(*endpoint);
+    *endpoint = jPrompt(prompt, trimmer, newline);
+}
+
+char *jPrompt(char const *prompt, JTrimmer trimmer, bool newline)
 {
     char *response = NULL;
 
