@@ -32,6 +32,11 @@ JTableProperties jTableInit(int columns, ...)
     return properties;
 }
 
+void jTableDestruct(JTableProperties *properties) {
+    free(properties->widths);
+    properties->widths = NULL;
+}
+
 void jTableAdjust(JTableProperties *properties, ...) {
     va_list args;
     va_start(args, properties);

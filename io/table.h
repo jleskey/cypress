@@ -23,6 +23,13 @@ typedef struct JTableProperties {
 JTableProperties jTableInit(int columns, ...);
 
 /**
+ * Cleans up a table no longer in use.
+ *
+ * @param[in] properties The table properties
+ */
+void jTableDestruct(JTableProperties *properties);
+
+/**
  * Adjust a table to accomodate more data.
  *
  * @param[in] properties The table properties
